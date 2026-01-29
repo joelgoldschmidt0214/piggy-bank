@@ -35,7 +35,8 @@ timeout: 10m
 
 # Cache settings
 cache:
-  clear: false
+  # Note: 'clear' option was removed in Trivy v0.65+
+  # Use 'trivy clean --scan-cache' command instead
   dir: /tmp/trivy
 
 # Misconfiguration scan settings

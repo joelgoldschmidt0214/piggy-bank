@@ -32,7 +32,7 @@ jobs:
           install: true
           cache: true
         env:
-          MISE_INSTALL: terraform asdf:azure-cli
+          MISE_INSTALL: terraform
 
       - name: Terraform Init
         run: terraform init
