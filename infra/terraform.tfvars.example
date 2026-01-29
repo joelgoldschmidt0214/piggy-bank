@@ -1,0 +1,17 @@
+# Copy this file to terraform.tfvars and fill in your values
+# cp terraform.tfvars.example terraform.tfvars
+
+location    = "japaneast"
+environment = "dev"
+
+# Container image (updated by CI/CD)
+container_image = "acrpiggybankdev.azurecr.io/backend:latest"
+
+# Database connection string (from Supabase)
+database_url = "postgresql+asyncpg://postgres:PASSWORD@db.xxxxx.supabase.co:5432/postgres"
+
+# Application secrets (generate secure random strings)
+secret_key = "your-super-secret-key-change-this-in-production"
+
+# OpenAI API key
+openai_api_key = "sk-your-openai-api-key"
