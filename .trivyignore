@@ -1,0 +1,6 @@
+# Trivy Ignore File
+# 脆弱性スキャンから除外するCVE/誤検知を記載
+
+# Example:
+# CVE-2021-12345
+# Reason: False positive - not applicable to our use case

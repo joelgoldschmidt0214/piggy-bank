@@ -1,0 +1,77 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    ":prHourlyLimitNone",
+    ":maintainLockFilesWeekly",
+    ":disableRateLimiting"
+  ],
+  "osvVulnerabilityAlerts": true,
+  "timezone": "Asia/Tokyo",
+  "labels": [
+    "dependencies"
+  ],
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "description": "【制約】Node.js (Runtime & Docker) - v22系(LTS)に固定",
+      "matchPackageNames": [
+        "node",
+        "@types/node"
+      ],
+      "allowedVersions": "22.x"
+    },
+    {
+      "description": "【制約】Python (Runtime & Docker) - v3.13系に固定",
+      "matchPackageNames": [
+        "python"
+      ],
+      "allowedVersions": "3.13.x"
+    },
+    {
+      "description": "【制約】pnpm - v10系に固定",
+      "matchPackageNames": [
+        "pnpm"
+      ],
+      "allowedVersions": "10.x"
+    },
+    {
+      "description": "【グループ】Next.js ecosystem",
+      "matchPackageNames": [
+        "next",
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom"
+      ],
+      "groupName": "nextjs-ecosystem"
+    },
+    {
+      "description": "Group Python dependencies updates",
+      "matchLanguages": ["python"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "python-deps"
+    },
+    {
+      "description": "Auto-merge GitHub Actions updates",
+      "matchManagers": ["github-actions"],
+      "automerge": true
+    },
+    {
+      "description": "Auto-merge non-major updates",
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "description": "Auto-merge devDependencies",
+      "matchDepTypes": ["devDependencies"],
+      "automerge": true
+    },
+    {
+      "description": "Lockfile maintenance",
+      "matchUpdateTypes": ["lockFileMaintenance"],
+      "schedule": ["before 3am on Monday"],
+      "automerge": true
+    }
+  ]
+}

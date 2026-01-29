@@ -1,0 +1,31 @@
+{
+    "folders": [
+        {
+            "name": "🏠 Root",
+            "path": "."
+        },
+        {
+            "name": "🎨 Frontend",
+            "path": "frontend"
+        },
+        {
+            "name": "⚙️ Backend",
+            "path": "backend"
+        },
+        {
+            "name": "🏗️ Infrastructure",
+            "path": "infra"
+        },
+        {
+            "name": "📚 Docs",
+            "path": "docs"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.git": true,
+            "**/__pycache__": true,
+            "**/node_modules": true
+        }
+    }
+}
