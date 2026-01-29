@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: supabase/postgres:15.1.0.117
+    container_name: piggy-bank-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: piggy_bank
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Supabase Studio (Database Management UI)
+  supabase-studio:
+    image: supabase/studio:20231123-64a766a
+    container_name: piggy-bank-studio
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      SUPABASE_URL: http://localhost:8000
+      SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
+      STUDIO_PG_META_URL: http://postgres:5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+    driver: local
+    name: piggy-bank_postgres_data
