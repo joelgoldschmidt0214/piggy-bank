@@ -1,0 +1,68 @@
+name: Infrastructure CI/CD
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ["infra/**", ".github/workflows/infra.yml"]
+  push:
+    branches: [main]
+    paths: ["infra/**", ".github/workflows/infra.yml"]
+
+permissions:
+  id-token: write # OIDC認証用
+  contents: read
+  pull-requests: write # PRへのコメント投稿用
+
+env:
+  WORKING_DIR: infra/azure
+  ARM_USE_OIDC: true
+
+jobs:
+  terraform:
+    name: Terraform Workflow
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v2
+
+      - name: Terraform Init
+        run: terraform init
+
+      # PRの場合のみ実行: Plan & コメント投稿
+      - name: Terraform Plan
+        if: github.event_name == 'pull_request'
+        id: plan
+        run: |
+          terraform plan -no-color -out=tfplan
+          terraform show -no-color tfplan > tfplan.txt
+
+      - name: Comment PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const plan = fs.readFileSync('${{ env.WORKING_DIR }}/tfplan.txt', 'utf8');
+            const output = `#### Terraform Plan 📖 (Automated)
+
+            \`\`\`hcl
+            ${plan.length > 6000 ? plan.substring(0, 6000) + '... (Output truncated)' : plan}
+            \`\`\`
+
+            *マージされると、これらの変更が自動的に Azure へ適用されます。*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      # mainへのマージ(push)の場合のみ実行: Apply
+      - name: Terraform Apply
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve
