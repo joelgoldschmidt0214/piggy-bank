@@ -28,6 +28,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v2
+        with:
+          install: true
+          cache: true
+        env:
+          MISE_INSTALL: terraform asdf:azure-cli
 
       - name: Terraform Init
         run: terraform init

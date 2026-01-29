@@ -14,7 +14,8 @@ uv = "latest"
 just = "1.46.0"
 
 # Cloud CLI: システムの apt 経由よりバージョン固定が容易
-azure-cli = { version = "2.82.0", plugin = "https://github.com/EcoMind/asdf-azure-cli.git" }
+# asdf: プレフィックスでバックエンドを固定し、uvの依存関係解決問題を回避
+"asdf:azure-cli" = { version = "2.82.0", plugin = "https://github.com/EcoMind/asdf-azure-cli.git" }
 
 # Security: trivy.yaml があるため、ローカルでも同じバージョンで叩けるようにする
 "aqua:aquasecurity/trivy" = "latest"

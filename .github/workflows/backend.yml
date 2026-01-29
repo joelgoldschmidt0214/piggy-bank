@@ -27,6 +27,11 @@ jobs:
 
       - name: Setup mise (uv, python)
         uses: jdx/mise-action@v2
+        with:
+          install: true
+          cache: true
+        env:
+          MISE_INSTALL: uv python
 
       - name: Install dependencies
         run: uv sync --frozen
