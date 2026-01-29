@@ -1,0 +1,47 @@
+# Trivy Security Scanner Configuration
+# https://aquasecurity.github.io/trivy/
+
+# Scan settings
+scan:
+  # Security issue types to detect
+  security-checks:
+    - vuln      # Vulnerabilities
+    - config    # Misconfigurations
+    - secret    # Secrets
+
+# Vulnerability settings
+vulnerability:
+  type:
+    - os        # OS packages
+    - library   # Application dependencies
+
+# Severity levels to report
+severity:
+  - CRITICAL
+  - HIGH
+  - MEDIUM
+
+# Output format
+format: table
+
+# Exit code
+exit-code: 1  # Exit with error if vulnerabilities found
+
+# Ignore unfixed vulnerabilities
+ignore-unfixed: false
+
+# Timeout
+timeout: 10m
+
+# Cache settings
+cache:
+  clear: false
+  dir: /tmp/trivy
+
+# Misconfiguration scan settings
+misconfig:
+  include-non-failures: false
+
+# Secret scan settings
+secret:
+  config: .trivyignore

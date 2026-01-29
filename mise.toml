@@ -1,0 +1,31 @@
+[tools]
+# Node.js
+node = "24.13.0"
+pnpm = "10.28.2"
+
+# Terraform (最新安定版)
+terraform = "1.14.4"
+
+# Python管理ツール (uv自体もmiseで管理)
+python = "3.13"
+uv = "latest"
+
+# Justコマンドランナー
+just = "1.46.0"
+
+# Cloud CLI: システムの apt 経由よりバージョン固定が容易
+azure-cli = { version = "2.82.0", plugin = "https://github.com/EcoMind/asdf-azure-cli.git" }
+
+# Security: trivy.yaml があるため、ローカルでも同じバージョンで叩けるようにする
+"aqua:aquasecurity/trivy" = "latest"
+
+# Linter: GitHub Actions の構文チェック用
+"aqua:rhysd/actionlint" = "latest"
+
+# Shell: Justfile 内のスクリプト品質維持
+"aqua:koalaman/shellcheck" = "latest"
+
+[env]
+# プロジェクトルートの .env.example を元に .env を作成している場合、
+# ディレクトリに入った瞬間に自動で読み込む設定が可能（mise 2025.x以降の推奨機能）
+_.file = ".env"
