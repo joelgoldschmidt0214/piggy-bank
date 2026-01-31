@@ -19,6 +19,8 @@ jobs:
   trivy-vuln:
     name: Trivy Vulnerability Scan
     runs-on: ubuntu-latest
+    # Skip for Renovate PRs to reduce CI usage
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'renovate/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -44,6 +46,8 @@ jobs:
   trivy-config:
     name: Trivy Config Scan
     runs-on: ubuntu-latest
+    # Skip for Renovate PRs
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'renovate/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -69,7 +73,8 @@ jobs:
   dependency-review:
     name: Dependency Review
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    # Skip for Renovate PRs (or already checked by Renovate report)
+    if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'renovate/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -83,6 +88,8 @@ jobs:
   npm-audit:
     name: NPM Audit
     runs-on: ubuntu-latest
+    # Skip for Renovate PRs
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'renovate/')
     defaults:
       run:
         working-directory: ./frontend
@@ -106,6 +113,8 @@ jobs:
   pip-audit:
     name: Pip Audit
     runs-on: ubuntu-latest
+    # Skip for Renovate PRs
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'renovate/')
     defaults:
       run:
         working-directory: ./backend
@@ -132,6 +141,8 @@ jobs:
   secret-scan:
     name: Secret Scanning
     runs-on: ubuntu-latest
+    # Skip for Renovate PRs
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'renovate/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
