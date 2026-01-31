@@ -14,12 +14,12 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
-      "description": "【制約】Node.js (Runtime & Docker) - v22系(LTS)に固定",
+      "description": "【制約】Node.js (Runtime & Docker) - v24系(LTS)に固定",
       "matchPackageNames": [
         "node",
         "@types/node"
       ],
-      "allowedVersions": "22.x"
+      "allowedVersions": "24.x"
     },
     {
       "description": "【制約】Python (Runtime & Docker) - v3.13系に固定",
@@ -42,36 +42,51 @@
         "react",
         "react-dom",
         "@types/react",
-        "@types/react-dom"
+        "@types/react-dom",
+        "eslint-config-next"
       ],
-      "groupName": "nextjs-ecosystem"
+      "groupName": "nextjs-ecosystem",
+      "groupSlug": "nextjs"
     },
     {
-      "description": "Group Python dependencies updates",
-      "matchLanguages": ["python"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "python-deps"
+      "description": "【グループ】Python dependencies - まとめてレビュー",
+      "matchManagers": [
+        "pep621",
+        "pip_requirements"
+      ],
+      "groupName": "python-deps",
+      "groupSlug": "python"
     },
     {
-      "description": "Auto-merge GitHub Actions updates",
-      "matchManagers": ["github-actions"],
+      "description": "【グループ】GitHub Actions - 自動マージ",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github-actions",
+      "groupSlug": "gha",
       "automerge": true
     },
     {
-      "description": "Auto-merge non-major updates",
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
+      "description": "【グループ】その他すべてのマイナー・パッチ更新 (Frontend/Docker/Terraform等)",
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest"
+      ],
+      "groupName": "all-non-major",
+      "groupSlug": "all-non-major",
+      "automerge": false
     },
     {
-      "description": "Auto-merge devDependencies",
-      "matchDepTypes": ["devDependencies"],
-      "automerge": true
-    },
-    {
-      "description": "Lockfile maintenance",
-      "matchUpdateTypes": ["lockFileMaintenance"],
-      "schedule": ["before 3am on Monday"],
-      "automerge": true
+      "description": "Major updates - 要手動レビュー",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "labels": [
+        "dependencies",
+        "major-update"
+      ],
+      "automerge": false
     }
   ]
 }
