@@ -4,14 +4,14 @@
 # Scan settings
 scan:
   # Security issue types to detect
-  security-checks:
+  scanners:
     - vuln      # Vulnerabilities
-    - config    # Misconfigurations
+    - misconfig # Misconfigurations
     - secret    # Secrets
 
 # Vulnerability settings
-vulnerability:
-  type:
+pkg:
+  types:
     - os        # OS packages
     - library   # Application dependencies
 
@@ -25,7 +25,7 @@ severity:
 format: table
 
 # Exit code
-exit-code: 1  # Exit with error if vulnerabilities found
+exit-code: 0  # Exit with 0 even if vulnerabilities found (for SARIF upload)
 
 # Ignore unfixed vulnerabilities
 ignore-unfixed: false
