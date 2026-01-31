@@ -85,7 +85,7 @@ temp/
 
 # UV
 .uv/
-uv.lock
+# uv.lock
 
 # Just
 .just/
