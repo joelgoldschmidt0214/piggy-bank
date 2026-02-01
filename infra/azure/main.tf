@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 1.14.0"
+  required_version = "~> 1.14.4"
 
   # バックエンド設定（Azure Blob Storage）
   backend "azurerm" {
@@ -15,7 +15,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.0" # 2026年現在のメジャーバージョン
+      version = "~> 4.58" # 2026年現在のメジャーバージョン
     }
   }
 }
