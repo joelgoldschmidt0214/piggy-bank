@@ -23,7 +23,7 @@ services:
 
   # Supabase Studio (Database Management UI)
   supabase-studio:
-    image: supabase/studio:20231123-64a766a
+    image: supabase/studio:20231123-64a766a@sha256:393669f03b739fa5f196a5a0254442d224c439acff3ebe738cb27847d5fc207d
     container_name: piggy-bank-studio
     restart: unless-stopped
     ports:
